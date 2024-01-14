@@ -3,14 +3,21 @@ import {
   StyleSheet,
   FlatList,
   KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 import bg from '../../assets/images/BG.png';
 import Message from '../components/Message';
 import messages from '../../assets/data/messages.json';
 import InputBox from '../components/InputBox';
+import { useEffect } from 'react';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 export default function ChatScreen() {
+  const route = useRoute();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: route.params.name });
+  }, [route.params.name]);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
